@@ -7,6 +7,8 @@ import json
 apiKey = 'INSERT-API-KEY'
 emailFinalized = 'completed@example.com'
 
+print('\n##### Example Starting #####')
+
 # Upload the file and get a documentid to pass to create a signature endpoint
 # https://docs.ontask.io/#upload
 url = "https://app.ontask.io/api/v2/documents"
@@ -20,7 +22,6 @@ requestHeadersDocument = {
 response = requests.post(url=url, headers=requestHeadersDocument, data=data)
 documentid = response.json()['documentId']
 
-print('\n##### Example Starting #####')
 print('\nUploaded sample file and received a documentId of ' + documentid)
 
 # Call signature to and create and start signature process
@@ -28,7 +29,7 @@ print('\nUploaded sample file and received a documentId of ' + documentid)
 url = 'https://app.ontask.io/api/v2/signatures'
 
 requestBody = {
-                "documentId": documentid,
+                "documents": [ { "documentId": documentid } ] ,
                 "testMode": True,
                 "signers": [
                     {
